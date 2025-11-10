@@ -1,10 +1,17 @@
 {
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "http": "^0.0.1-security",
+    "@types/node": "^22.13.11",
     "ws": "^8.18.3"
   }
 }
