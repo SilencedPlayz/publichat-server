@@ -15,14 +15,27 @@ wss.on("connection", (ws) => {
 
   ws.on("message", (msg) => {
     const message = msg.toString();
-    wss.clients.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
+    const obj = JSON.parse(message)
+    if(obj.type === "data"){
+      ws.username = obj.username
+    }else
+    if(obj.type === "online"){
+      ws.send(JSON.stringify({type: "online", amount: wss.clients.size}))
+    }else{
+      wss.clients.forEach((client) => {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      })
+    }
   });
 
   ws.on("close", () => {
+    wss.clients.forEach((client) => {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({type: "log", msg: `${ws.username} disconnected`}));
+      }
+    })
     console.log("Connection lost");
   });
 });
