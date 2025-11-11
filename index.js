@@ -12,8 +12,6 @@ server.on("upgrade", (req, socket, head) => {
 
 wss.on("connection", (ws) => {
   console.log("Connection has been made");
-  const config = {type: "log", username: "Server", msg: "Successfully Connected"}
-  ws.send(JSON.stringify(config));
 
   ws.on("message", (msg) => {
     const message = msg.toString();
